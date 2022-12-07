@@ -102,7 +102,7 @@ export const Button = styled(Link)<{
     font-size: ${({largeFont}) => largeFont ? '20px' : '16px'};
     border-radius: 50px;
     white-space: nowrap;
-    outline: one;
+    outline: none;
     border: none;
     cursor: pointer;
     display: flex;
