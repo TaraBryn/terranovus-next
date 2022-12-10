@@ -90,7 +90,9 @@ export const Button = styled(Link)<{
     hoverBg?: string,
     hoverFg?: string
     large?: boolean,
-    largeFont?: boolean
+    padding?: string,
+    largeFont?: boolean,
+    fontSize?: string
 }>`
     background: ${({theme: {colors}, bg}) => (
       colors[bg] || colors.highlight
@@ -98,8 +100,16 @@ export const Button = styled(Link)<{
     color: ${({theme: {colors}, fg}) => (
       colors[fg] || colors.contrast
     )};
-    padding: ${({large}) => large ? '14px 48px' : '12px 30px'};
-    font-size: ${({largeFont}) => largeFont ? '20px' : '16px'};
+    padding: ${({large, padding}) => (
+      large 
+      ? '14px 48px' 
+      : padding || '12px 30px'
+    )};
+    font-size: ${({largeFont, fontSize}) => (
+      largeFont 
+      ? '20px' 
+      : fontSize || '16px'
+    )};
     border-radius: 50px;
     white-space: nowrap;
     outline: none;
