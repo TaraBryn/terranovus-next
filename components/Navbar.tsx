@@ -103,7 +103,21 @@ const NavItem = styled.li`
   align-items: center;
 `;
 
-const NavLink = styled(LinkScroll)`
+const NavLink = styled(Link)`
+  color: ${(props) => props.theme.colors.contrast};
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+
+  &.active {
+    border-bottom: ${({ theme }) => `3px solid ${theme.colors.highlight}`};
+  }
+`;
+
+const NavLinkScroll = styled(LinkScroll)`
   color: ${(props) => props.theme.colors.contrast};
   display: flex;
   align-items: center;
@@ -184,21 +198,42 @@ const NavBar = ({
                     {
                         content
                         .filter(e => (
+                          e.scroll && (
                             e.paths
                             ? e.paths.includes(location)
                             : e.excludedPaths
                             ? !e.excludedPaths.includes(location)
                             : true
+                          )
                         ))
                         .map(e => (
                             <NavItem key={e.to + '-link'}>
-                                <NavLink
+                                <NavLinkScroll
                                     to={e.to}
                                     smooth={true}
                                     duration={500}
                                     spy={true}
                                     offset={-80}
                                 >
+                                    {e.content}
+                                </NavLinkScroll>
+                            </NavItem>
+                        ))
+                    }
+                    {
+                        content
+                        .filter(e => (
+                          !e.scroll && (
+                            e.paths
+                            ? e.paths.includes(location)
+                            : e.excludedPaths
+                            ? !e.excludedPaths.includes(location)
+                            : true
+                          )
+                        ))
+                        .map(e => (
+                            <NavItem key={e.to + '-link'}>
+                                <NavLink href={e.to}>
                                     {e.content}
                                 </NavLink>
                             </NavItem>

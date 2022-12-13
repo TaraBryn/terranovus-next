@@ -8,29 +8,34 @@ interface contentInterface {
 
 const content: contentInterface[] = [
     {
-        "to": "top",
-        "content": "Home",
+        to: "top",
+        content: "Home",
         paths: ['/'],
         scroll: true
     },
     {
-        "to": "about",
-        "content": "About",
-        "paths": ["/"],
+        to: '/',
+        content: 'Home',
+        excludedPaths: ['/'],
+    },
+    {
+        to: "about",
+        content: "About",
+        paths: ["/"],
         scroll: true
     },
     {
-        "to": "discover",
-        "content": "Discover",
-        "paths": ["/"],
+        to: "discover",
+        content: "Discover",
+        paths: ["/"],
         scroll: true
     },
     {
-        "to": "services",
-        "content": "Services",
-        "paths": ["/"],
+        to: "services",
+        content: "Services",
+        paths: ["/"],
         scroll: true
-    }
+    },
 ]
 
 export default content
