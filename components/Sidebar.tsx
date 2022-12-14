@@ -58,7 +58,24 @@ const SidebarMenu = styled.ul`
     }
 `
 
-const SidebarLink = styled(LinkScroll)`
+const SidebarLink = styled(Link)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    list-style: none;
+    transition: 0.2s ease-in-out;
+    color: ${props => props.theme.colors.contrast};
+    cursor: pointer;
+
+    &:hover {
+        color: ${props => props.theme.colors.highlight};
+        transition: all 0.2s ease-in-out;
+    }
+`
+
+const SidebarLinkScroll = styled(LinkScroll)`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,15 +138,37 @@ const Sidebar = ({
                 <SidebarMenu>
                     {
                         content.filter(e =>  (
-                            e.paths
-                            ? e.paths.includes(location)
-                            : e.excludedPaths
-                            ? !e.excludedPaths.includes(location)
-                            : true
+                            e.scroll && (
+                                e.paths
+                                ? e.paths.includes(location)
+                                : e.excludedPaths
+                                ? !e.excludedPaths.includes(location)
+                                : true
+                            )
+                        ))
+                        .map(e => (
+                            <SidebarLinkScroll
+                                to={e.to}
+                                onClick={toggle}
+                                key={e.to + '-link'}
+                            >
+                                {e.content}
+                            </SidebarLinkScroll>
+                        ))
+                    }
+                    {
+                        content.filter(e =>  (
+                            !e.scroll && (
+                                e.paths
+                                ? e.paths.includes(location)
+                                : e.excludedPaths
+                                ? !e.excludedPaths.includes(location)
+                                : true
+                            )
                         ))
                         .map(e => (
                             <SidebarLink
-                                to={e.to}
+                                href={e.to}
                                 onClick={toggle}
                                 key={e.to + '-link'}
                             >
