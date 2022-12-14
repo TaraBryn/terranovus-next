@@ -7,7 +7,7 @@ import themes from '../themes'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import logo from '../media/TerraNovus_logo_01_REDROSES.png';
-import { Container } from '../components/SharedStyles'
+import { AppContainer } from '../components/SharedStyles'
 import NavBar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import Footer from '../components/Footer'
@@ -18,7 +18,9 @@ export const AppContext = React.createContext({
   excludeNav: false,
   setExcludeNav: undefined,
   excludeFooter: false,
-  setExcludeFooter: undefined
+  setExcludeFooter: undefined,
+  containerOptions: {},
+  setContainerOptions: undefined
 })
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -29,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [navAlpha, setNavAlpha] = useState(1);
   const [excludeNav, setExcludeNav] = useState(false);
   const [excludeFooter, setExcludeFooter] = useState(false);
+  const [containerOptions, setContainerOptions] = useState({})
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const toggleNavAlpha = () => setNavAlpha(navAlpha ? 0 : 1);
@@ -38,7 +41,9 @@ export default function App({ Component, pageProps }: AppProps) {
       excludeNav, 
       setExcludeNav,
       excludeFooter,
-      setExcludeFooter
+      setExcludeFooter,
+      containerOptions,
+      setContainerOptions
     }}>
     <ThemeProvider theme={theme}>
         <Sidebar
@@ -53,9 +58,9 @@ export default function App({ Component, pageProps }: AppProps) {
             opacity={navAlpha}
           />
         <GlobalStyle />
-        <Container>
+        <AppContainer {...containerOptions}>
             <Component {...pageProps} />
-        </Container>
+        </AppContainer>
         <Footer exclude={excludeFooter} />
       </ThemeProvider>
     </AppContext.Provider>

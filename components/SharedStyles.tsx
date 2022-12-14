@@ -2,25 +2,21 @@ import styled from 'styled-components'
 import Link from 'next/link';
 import { Link as LinkScroll } from 'react-scroll';
 
-export const Container = styled.div`
+export interface AppContainerInterface {
+  flex?: boolean,
+  flexDirection?: string,
+  justify?: string,
+  align?: string
+}
+
+export const AppContainer = styled.div<AppContainerInterface>`
   width: 100vw;
   max-width: 100%;
   min-height: calc(100vh - 80px);
-`
-
-export const FlexContainer = styled.div<{
-  width?: string,
-  height?: string,
-  align?: string,
-  justify?: string,
-  direction?: string
-}>`
-  display: flex;
-  flex-direction: ${({direction}) => direction || 'column'};
-  align-items: ${({align}) => align || 'center'};
+  display: ${({flex}) => flex ? 'felx' : 'block'};
+  flex-direction: ${({flexDirection}) => flexDirection || 'column'};
   justify-content: ${({justify}) => justify || 'center'};
-  width: ${({width}) => width || '100%'};
-  height: ${({height}) => height || '100%'};
+  align-items: ${({align}) => align || 'center'};
 `
 
 export const Spacer = styled.div<{
